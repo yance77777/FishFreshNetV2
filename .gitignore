@@ -1,0 +1,39 @@
+﻿# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# Experiment outputs and model artifacts
+runs/
+*.pth
+*.pt
+*.onnx
+*.tar.gz
+*.zip
+*.exe
+*.msi
+*.pdf
+*.log
+nohup.out
+
+# Datasets
+Multistage Fish Eye Dataset/
+FFE dataset/
+data/
+datasets/
+
+# Private project materials not included in the public release
+paper/
+docs/
+software/
+artifacts/
+results*/
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
