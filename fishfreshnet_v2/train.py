@@ -62,29 +62,22 @@ CRA_CAPABLE_MODELS = {"fishfreshnet_v2"}
 
 
 def _find_mfed_dataset() -> Path | None:
-    """Auto-detect MFED dataset in common locations.
+    """Auto-detect the fish freshness dataset in common locations.
 
-    Searches in:
-    - Current working directory (local dev / same dir as project)
-    - Parent directory (local dev)
-    - /root/autodl-tmp/ (AutoDL data disk - recommended)
-    - /root/ (AutoDL system disk)
+    Searches in the current working directory and its parent, for folders
+    named ``Multistage Fish Eye Dataset``, ``MFED``, or the same names with
+    underscores. Pass ``--data-dir`` explicitly if your dataset lives
+    elsewhere.
     """
-    candidates = [
-        Path("/root/autodl-tmp/MFED"),
-        Path("/root/autodl-tmp/Multistage Fish Eye Dataset"),
-        Path("/root/autodl-tmo/MFED"),
-        Path("/root/autodl-tmo/Multistage Fish Eye Dataset"),
-        # Same directory as project (autodl-tmp or local)
-        Path.cwd() / "Multistage Fish Eye Dataset",
-        Path.cwd() / "MFED",
-        # Parent directory
-        Path.cwd().parent / "Multistage Fish Eye Dataset",
-        Path.cwd().parent / "MFED",
-        # AutoDL system disk fallback
-        Path("/root/Multistage Fish Eye Dataset"),
-        Path("/root/MFED"),
+    names = [
+        "Multistage Fish Eye Dataset",
+        "Multistage_Fish_Eye_Dataset",
+        "MFED",
     ]
+    candidates: list[Path] = []
+    for name in names:
+        candidates.append(Path.cwd() / name)
+        candidates.append(Path.cwd().parent / name)
     for p in candidates:
         if p.exists() and (p / "Highly Fresh").is_dir():
             return p.resolve()
@@ -107,7 +100,7 @@ Examples:
     default_data = _find_mfed_dataset()
     parser.add_argument("--data-dir", type=Path,
                         default=default_data,
-                        help="Path to MFED root directory. Auto-detected if not specified.")
+                        help="Path to dataset root. Auto-detected if not specified.")
     parser.add_argument("--output-dir", type=Path, default=Path("runs/fishfreshnet_v2"))
     parser.add_argument("--model", type=str, default="fishfreshnet_v2",
                         choices=[
@@ -116,7 +109,7 @@ Examples:
                         ],
                         help="Model variant: fishfreshnet_v2 or fishfreshnet_v2_lite")
     parser.add_argument("--epochs", type=int, default=60, help="Training epochs (default: 60)")
-    parser.add_argument("--batch-size", type=int, default=512, help="Batch size (default: 512, RTX 5090)")
+    parser.add_argument("--batch-size", type=int, default=512, help="Batch size (default: 512, tune to your GPU)")
     parser.add_argument("--learning-rate", type=float, default=3e-4, help="Learning rate (default: 3e-4)")
     parser.add_argument("--label-smoothing", type=float, default=0.05,
                         help="Cross-entropy label smoothing. Use 0 to disable (default: 0.05)")
@@ -488,8 +481,8 @@ def main() -> None:
 
     if args.data_dir is None:
         raise FileNotFoundError(
-            "MFED dataset not found. Please specify --data-dir manually.\n"
-            "Example: python FishFreshNetV2.py --data-dir /path/to/MFED"
+            "Dataset not found. Please specify --data-dir manually.\n"
+            "Example: python FishFreshNetV2.py --data-dir /path/to/dataset"
         )
     args.data_dir = args.data_dir.expanduser().resolve()
     args.output_dir.mkdir(parents=True, exist_ok=True)

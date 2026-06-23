@@ -239,10 +239,10 @@ def plot_gradcam_grid(rows: list[dict], output_dir: Path) -> None:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Generate XAI figures for FishFreshNetV2")
-    parser.add_argument("--v2-weights", type=Path, default=Path("runs/v2_suite_20260617_190256/pth/best_fishfreshnetv2.pth"))
-    parser.add_argument("--lite-weights", type=Path, default=Path("runs/v2_suite_20260617_190256/pth/best_fishfreshnetv2_lite.pth"))
+    parser.add_argument("--v2-weights", type=Path, default=Path("runs/best_fishfreshnetv2.pth"))
+    parser.add_argument("--lite-weights", type=Path, default=Path("runs/best_fishfreshnetv2_lite.pth"))
     parser.add_argument("--data-dir", type=Path, default=Path("Multistage Fish Eye Dataset"))
-    parser.add_argument("--output-dir", type=Path, default=Path("runs/v2_suite_20260617_190256/publication_assets/xai"))
+    parser.add_argument("--output-dir", type=Path, default=Path("runs/xai"))
     parser.add_argument("--per-class", type=int, default=4)
     parser.add_argument("--device", default="cuda" if torch.cuda.is_available() else "cpu")
     return parser.parse_args()

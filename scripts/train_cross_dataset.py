@@ -283,7 +283,6 @@ def find_dataset(default_name: str, candidates: list[Path]) -> Path:
             return path
     return Path(default_name)
 
-
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Cross-dataset MFED/FFE experiments")
     parser.add_argument(
@@ -292,12 +291,9 @@ def parse_args() -> argparse.Namespace:
         default=find_dataset(
             "Multistage Fish Eye Dataset",
             [
-                Path("/root/autodl-tmp/MFED"),
-                Path("/root/autodl-tmp/Multistage Fish Eye Dataset"),
-                Path("/root/autodl-tmo/MFED"),
-                Path("/root/autodl-tmo/Multistage Fish Eye Dataset"),
-                Path("MFED"),
                 Path("Multistage Fish Eye Dataset"),
+                Path("Multistage_Fish_Eye_Dataset"),
+                Path("MFED"),
             ],
         ),
     )
@@ -307,12 +303,9 @@ def parse_args() -> argparse.Namespace:
         default=find_dataset(
             "FFE dataset",
             [
-                Path("/root/autodl-tmp/FFE"),
-                Path("/root/autodl-tmp/FFE dataset"),
-                Path("/root/autodl-tmo/FFE"),
-                Path("/root/autodl-tmo/FFE dataset"),
-                Path("FFE"),
                 Path("FFE dataset"),
+                Path("FFE_dataset"),
+                Path("FFE"),
             ],
         ),
     )

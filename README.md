@@ -14,7 +14,8 @@ fishfreshnet_v2/     Core model, dataset, training, and utility code
 scripts/             Training, benchmarking, plotting, and XAI scripts
 FishFreshNetV2.py    Main training entry point
 requirements.txt     Python dependencies
-setup.sh             Optional AutoDL/Linux setup helper
+setup.sh             Optional Linux/macOS setup helper
+LICENSE              MIT License
 ```
 
 ## Quick Start
@@ -40,8 +41,8 @@ python FishFreshNetV2.py --model fishfreshnet_v2_lite --data-dir "Multistage Fis
 Generate publication-style result assets from a local run directory:
 
 ```bash
-python scripts/generate_publication_assets.py --run-root runs/v2_suite_20260617_190256 --output-dir runs/v2_suite_20260617_190256/publication_assets
-python scripts/generate_xai_visualizations.py --data-dir "Multistage Fish Eye Dataset" --output-dir runs/v2_suite_20260617_190256/publication_assets/xai --device cpu
+python scripts/generate_publication_assets.py --run-root runs/my_run --output-dir runs/my_run/publication_assets
+python scripts/generate_xai_visualizations.py --data-dir "Multistage Fish Eye Dataset" --output-dir runs/my_run/xai --device cpu
 ```
 
 ## Open Source Scope
@@ -55,3 +56,7 @@ This repository does not include:
 - private application materials or packaged binaries.
 
 Place datasets locally using the class-folder layout expected by the training code: `Highly Fresh/`, `Fresh/`, and `Not Fresh/`.
+
+## License
+
+This project is released under the [MIT License](LICENSE).

@@ -264,7 +264,7 @@ def build_attention(attention: str, channels: int) -> nn.Module:
         return CBAM(channels)
     if attention == "none":
         return nn.Identity()
-    raise ValueError(f"Unknown attention: {attention}. Choose from eca, cbam, none.")
+    raise ValueError(f"Unknown attention: {attention}. Choose from eca, se, cbam, none.")
 
 
 class CompactClassifier(nn.Module):
